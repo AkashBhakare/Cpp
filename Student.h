@@ -1,14 +1,26 @@
 #pragma once
-#include "string"
-namespace my_library {
-	// UDT supplied in my_library
-	//composite data type
-	struct Student
+#include <string>
+#include <iostream>
+namespace mylib {
+	class Student
 	{
-		int roll_no;      //Premitive type 
-		float percentage; //Premitive type
-		std::string name; //UDT : Provided by standard library
+		friend std::ostream& operator << (std::ostream& out, const Student& ref);
+		friend std::ofstream& operator << (std::ofstream& out, const Student& ref);
+		friend std::istream& operator >> (std::istream& in, Student& ref);
+		friend std::ifstream& operator>>(std::ifstream& fin, Student& ref);
+		friend std::fstream& operator>>(std::fstream& fin, Student& ref);
+		friend std::fstream& operator << (std::fstream& out, const Student& ref);
+
+	private:
+		static const size_t max_name_length{ 32 };
+		char name[max_name_length];
+		size_t rollno;
+		float percentage;
+	public:
+		Student(std::string name, size_t rollno, float percentage);
+		Student() = default;
 	};
+
 
 }
 
